@@ -1,7 +1,8 @@
-- [Microsoft Blazor Installation and setup guide](#microsoft-blazor-installation-and-setup-guide)
+- [Microsoft Blazor Installation and setup guide (MAC OS - Big Sur 11.4)](#microsoft-blazor-installation-and-setup-guide-mac-os---big-sur-114)
+- [Abstraction of a Blazor WebAssembly App to use a Entity Framework App](#abstraction-of-a-blazor-webassembly-app-to-use-a-entity-framework-app)
 
 
-# Microsoft Blazor Installation and setup guide
+# Microsoft Blazor Installation and setup guide (MAC OS - Big Sur 11.4)
 
 - Download and install [VSCode for Mac](https://code.visualstudio.com/download)
 - Download and install [.NET Core SDK latest version(5.0)](https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.301-macos-x64-installer)
@@ -16,6 +17,10 @@
 - From CLI use the following command to check all the available templates. This should show **blazorserver** and **blazorwasm** should be available.
 
     `$ dotnet new`
+
+- Install template for unit testing from bUnit
+
+    `dotnet new --install bunit.template`
 
 - Create a solution named Beam and move inside it
      ```
@@ -77,3 +82,30 @@
     
       $ git push origin master
     ```
+
+# Abstraction of a Blazor WebAssembly App to use a Entity Framework App
+
+- Create a new console project under `Beam` folder and move inside it
+
+    `dotnet new console -o Beam.Data`
+
+- Add MSSQL Server package
+  
+    `dotnet add package Microsoft.EntityFrameworkCore.SqlServer`
+
+- Add the `Beam.data` project into solution from root folder
+
+    `dotnet sln add Beam.Data`
+
+- Add the models in `BeamContext.cs` and a connect class `Configure.cs` in `Beam.Data` project
+
+- Add the EF Core Design and ASP.NET EF Core and Identity packages for `Beam.Data` project
+
+    ```
+      $ dotnet add package Microsoft.EntityFrameworkCore.Design
+      $ dotnet add package Microsoft.AspNetCore
+      $ dotnet add package Microsoft.AspNetCore.Identity
+      $ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameWorkCore
+      $ 
+
+- 
