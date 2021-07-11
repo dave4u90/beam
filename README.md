@@ -106,6 +106,26 @@
       $ dotnet add package Microsoft.AspNetCore
       $ dotnet add package Microsoft.AspNetCore.Identity
       $ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameWorkCore
-      $ 
+    ```
 
-- 
+- Create the `Beam.Shared` project as a class library and place all the models there
+
+    `dotnet new classlib -o Beam.Shared`
+
+- Add the `Beam.Shared` project to the solution
+
+    `$ dotnet sln add Beam.Shared`
+
+- Add the dependency of `Beam.Shared` project in `Beam.Server`
+
+    `dotnet add Beam.Server/Beam.Server.csproj reference Beam.Shared/Beam.Shared.csproj`
+
+- Now add all the mapper classes in `Beam.Server/Mappers` folder
+
+- Since our `DbConText` is in `Beam.Data` and we are initializing the connection string in `Beam.Server`, we will need the following command to generate migrations from `Beam.Server` project
+
+    `dotnet ef migrations add InitialCreate --project ../Beam.Data/Beam.Data.csproj --context BeamContext --output-dir ../Beam.Data/Migrations`
+
+- Now run the migrations from `Beam.Server` project
+
+    `dotnet ef database update --project ../Beam.Data/Beam.Data.csproj --context BeamContext`
